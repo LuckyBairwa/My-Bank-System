@@ -825,6 +825,25 @@ void main()
             phone_no[strcspn(phone_no, "\n")] = '\0';
             closeAccount(acc_name, email, phone_no);
             break;
+
+
+        // Case 3 is for checking the bank balance is completed and it worked successfully.      
+        case 3:
+            system("cls");
+            printf("Enter the account name: ");
+            fgets(acc_name, sizeof(acc_name), stdin);
+            acc_name[strcspn(acc_name, "\n")] = '\0';
+            printf("Enter the account number: ");
+            scanf("%d", &acc_no);
+            getchar(); // Consume the newline character left by scanf
+            printf("Enter the email: ");
+            fgets(email, sizeof(email), stdin);
+            email[strcspn(email, "\n")] = '\0';
+            printf("Enter the contact number: ");
+            fgets(phone_no, sizeof(phone_no), stdin);
+            phone_no[strcspn(phone_no, "\n")] = '\0';
+            checkBalance(acc_name, acc_no, email, phone_no);
+            break;
     }
     
     

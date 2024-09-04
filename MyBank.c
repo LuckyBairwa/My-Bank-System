@@ -19,7 +19,7 @@ void saveAccountToFile(char *acc_name, int acc_no, char *email, char *phone_no, 
     }
 
     // It will save the account details in the file.
-    fprintf(file, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %s\nBalance: %.2f\n\n\n\n", acc_name, acc_no, email, phone_no, balance);
+    fprintf(file, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %sBalance: %.2f\n\n\n\n", acc_name, acc_no, email, phone_no, balance);
 
     // It will close the file.
     fclose(file);
@@ -127,7 +127,7 @@ void unsaveAccountToFile(char *acc_name, int acc_no, char *email, char *phone_no
 
     while (fscanf(file, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %s\nBalance: %f\n\n\n\n", file_acc_name, &file_acc_no, file_email, file_phone_no, &file_balance) == 5)
     {
-        if (strcmp(acc_name, file_acc_name) != 0 && acc_no != file_acc_no && strcmp(email, file_email) != 0)
+        if (!(strcmp(acc_name, file_acc_name) == 0 && acc_no == file_acc_no && strcmp(email, file_email) == 0 && strcmp(phone_no, file_phone_no) == 0))
         {
             // It will copy the all unmatching account details in the temp file.
             fprintf(tempFile, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %s\nBalance: %.2f\n\n\n\n", file_acc_name, file_acc_no, file_email, file_phone_no, file_balance);
@@ -541,12 +541,12 @@ void viewAccountInformation(char *acc_name, char *email)
 // <----> Function declaration for update the account information.
 void updateAccount(char *acc_name, char *email)
 {
-    char file_acc_name[60], file_email[60], file_phone_no[15];
-    int file_acc_no, account_found = 0, change = 0,choice, account_choice;
+    char file_acc_name[60], file_email[60], file_phone_no[15],account_choice;
+    int file_acc_no, account_found = 0, change = 0,choice;
     float file_balance;
 
     FILE *file = fopen("accounts.txt", "r");
-    FILE *tempfile = fopen("temp.txt", "w");
+    FILE *tempfile = fopen("temporary.txt", "w");
 
     if (file == NULL || tempfile == NULL)
     {
@@ -600,7 +600,7 @@ void updateAccount(char *acc_name, char *email)
                         closeAccount(acc_name, email, file_phone_no);
                         fclose(file);
                         fclose(tempfile);
-                        remove("acc.txt");
+                        remove("accounts.txt");
                         break;
 
                         // createAccount(acc_name, file_acc_no, email, file_phone_no, file_balance);
@@ -717,7 +717,7 @@ void updateAccount(char *acc_name, char *email)
     if (account_found)
     {
         remove("accounts.txt");
-        rename("temp.txt", "accounts.txt");
+        rename("temporary.txt", "accounts.txt");
 
         if (choice == 4 && (account_choice == 'y' || account_choice == 'Y')) {
             char new_acc_name[60], new_email[60], new_phone_no[15];
@@ -746,7 +746,8 @@ void updateAccount(char *acc_name, char *email)
             getch();
             system("color 7");
             system("cls");
-            remove("temp.txt");
+            remove("accounts.txt");
+            rename("temporary.txt", "accounts.txt");
         }
     }
     else
@@ -758,12 +759,73 @@ void updateAccount(char *acc_name, char *email)
         getch();
         system("color 7");
         system("cls");
-        remove("temp.txt");
+        remove("temporary.txt");
     }
 }
 
 
 void main()
 {
-    updateAccount("Shraddha", "shraddha@gmail.com");
+    int choice;
+    char acc_name[60], email[60], phone_no[15];
+    int acc_no;
+    float balance;
+
+
+    system("cls");
+    system("color a");
+    printf("\n\n\t\t\tWelcome to the Lucky's Bank System\n\n\n");
+    printf("Select the option given below: \n\n");
+    printf("---------------------------------------\n");
+    printf("1. Create Account\n");
+    printf("2. Delete Account\n");
+    printf("3. Check Balance\n");
+    printf("4. Deposit Amount\n");
+    printf("5. Withdraw Amount\n");
+    printf("6. Transfer Amount\n");
+    printf("7. View Account Information\n");
+    printf("8. Update Account\n");
+    printf("9. Exit\n");
+    printf("---------------------------------------\n");
+    printf("\n\nEnter your choice: ");
+    scanf("%d", &choice);
+    getchar();
+
+    switch (choice)
+    {
+        //Case 1 is for creating the account is completed and it works successfully.
+        case 1:
+            system("cls");
+            printf("Enter the account name: ");
+            fgets(acc_name, sizeof(acc_name), stdin);
+            acc_name[strcspn(acc_name, "\n")] = '\0';
+            printf("Enter the email: ");
+            fgets(email, sizeof(email), stdin);
+            email[strcspn(email, "\n")] = '\0';
+            printf("Enter the contact number: ");
+            fgets(phone_no, sizeof(phone_no), stdin);
+            printf("Enter the balance: ");
+            scanf("%f", &balance);
+            printf("Enter the account number: ");
+            scanf("%d", &acc_no);
+            createAccount(acc_name, acc_no, email, phone_no, balance);
+            break;
+
+        //Case 2 is for deleting the account is completed and it works successfully without an error.
+        case 2:
+            system("cls");
+            printf("Enter the account name: ");
+            fgets(acc_name, sizeof(acc_name), stdin);
+            acc_name[strcspn(acc_name, "\n")] = '\0';
+            printf("Enter the email: ");
+            fgets(email, sizeof(email), stdin);
+            email[strcspn(email, "\n")] = '\0';
+            printf("Enter the contact number: ");
+            fgets(phone_no, sizeof(phone_no), stdin);
+            phone_no[strcspn(phone_no, "\n")] = '\0';
+            closeAccount(acc_name, email, phone_no);
+            break;
+    }
+    
+    
 }

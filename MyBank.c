@@ -864,6 +864,27 @@ void main()
             printf("Enter the amount to deposit: ");
             scanf("%f", &balance);
             deposit(acc_name, acc_no, email, phone_no, balance);
+            break;
+
+        // Case 5 is for withdraw the amount from the account is completed and it runs successfully.
+        case 5:
+            system("cls");
+            printf("Enter the account name: ");
+            fgets(acc_name, sizeof(acc_name), stdin);
+            acc_name[strcspn(acc_name, "\n")] = '\0';
+            printf("Enter the account number: ");
+            scanf("%d", &acc_no);
+            getchar(); 
+            printf("Enter the email: ");
+            fgets(email, sizeof(email), stdin);
+            email[strcspn(email, "\n")] = '\0';
+            printf("Enter the contact number: ");
+            fgets(phone_no, sizeof(phone_no), stdin);
+            phone_no[strcspn(phone_no, "\n")] = '\0';
+            printf("Enter the amount to withdraw: ");
+            scanf("%f", &balance);
+
+            withdraw(acc_name,acc_no,email,phone_no,balance);
 
     }
     

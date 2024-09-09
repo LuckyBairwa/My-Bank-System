@@ -141,7 +141,7 @@ void unsaveAccountToFile(char *acc_name, int acc_no, char *email, char *phone_no
     rename("temp.txt", "accounts.txt"); // It will rename the temp.txt to the accounts.txt file.
 
     system("cls");
-    system ("color a");
+    system("color a");
     printf("Message: Account deleted successfully!\n");
     printf("\n\nPress any key to continue ...");
     getch();
@@ -169,7 +169,7 @@ void closeAccount(char *acc_name, char *email, char *phone_no)
         getch();
         system("color 7");
         system("cls");
-        return; 
+        return;
     }
 
     while (fscanf(file, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %s\nBalance: %f\n\n\n\n", file_acc_name, &file_acc_no, file_email, file_phone_no, &file_balance) == 5)
@@ -495,9 +495,7 @@ void viewAccountInformation(char *acc_name, char *email)
         system("color 7");
         system("cls");
         return;
-
     }
-
 
     while (fscanf(file, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %s\nBalance: %f\n\n\n\n", file_acc_name, &file_acc_no, file_email, file_phone_no, &file_balance) == 5)
     {
@@ -505,11 +503,10 @@ void viewAccountInformation(char *acc_name, char *email)
         {
             account_found = 1;
 
-
             // Showing the account information.
             // Account found, print the details
             system("cls");
-            system("color a"); 
+            system("color a");
             printf("Account Information:\n");
             printf("---------------------------\n");
             printf("Name: %s\n", file_acc_name);
@@ -522,7 +519,6 @@ void viewAccountInformation(char *acc_name, char *email)
             getch();
             system("color 7");
             system("cls");
-
         }
     }
     fclose(file);
@@ -541,8 +537,8 @@ void viewAccountInformation(char *acc_name, char *email)
 // <----> Function declaration for update the account information.
 void updateAccount(char *acc_name, char *email)
 {
-    char file_acc_name[60], file_email[60], file_phone_no[15],account_choice;
-    int file_acc_no, account_found = 0, change = 0,choice;
+    char file_acc_name[60], file_email[60], file_phone_no[15], account_choice;
+    int file_acc_no, account_found = 0, change = 0, choice;
     float file_balance;
 
     FILE *file = fopen("accounts.txt", "r");
@@ -560,14 +556,15 @@ void updateAccount(char *acc_name, char *email)
         return;
     }
 
-    while(fscanf(file, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %s\nBalance: %f\n\n\n\n", file_acc_name, &file_acc_no, file_email, file_phone_no, &file_balance) == 5)
+    while (fscanf(file, "Name: %s\nAccount Number: %d\nEmail: %s\nContact Number: %s\nBalance: %f\n\n\n\n", file_acc_name, &file_acc_no, file_email, file_phone_no, &file_balance) == 5)
     {
         if (strcmp(acc_name, file_acc_name) == 0 && strcmp(email, file_email) == 0)
         {
             // char account_choice;
             account_found = 1;
 
-            do{
+            do
+            {
                 system("cls");
                 system("color a");
                 printf("Update Account Information:\n");
@@ -579,7 +576,7 @@ void updateAccount(char *acc_name, char *email)
 
                 printf("\nEnter your choice: ");
                 scanf("%d", &choice);
-                getchar(); //clear the new line left in the buffer.
+                getchar(); // clear the new line left in the buffer.
 
                 if (choice == 4)
                 {
@@ -588,12 +585,10 @@ void updateAccount(char *acc_name, char *email)
                     system("color 6");
                     printf("Warning: You can't edit all the details at once, but you can close your account and create a new one.\n");
 
-
                     printf("\nWould you like to close your account? (y/n): ");
                     char account_choice;
                     scanf("%c", &account_choice);
-                    getchar(); //clear the newline.
-
+                    getchar(); // clear the newline.
 
                     if (account_choice == 'y' || account_choice == 'Y')
                     {
@@ -628,27 +623,27 @@ void updateAccount(char *acc_name, char *email)
                         continue;
                     }
                 }
-                else if (choice == 1 && change <2)
+                else if (choice == 1 && change < 2)
                 {
                     system("cls");
                     system("color a");
                     printf("Enter the new name: ");
-                    getchar(); //clear the newline.
+                    getchar(); // clear the newline.
                     fgets(file_acc_name, sizeof(file_acc_name), stdin);
                     file_acc_name[strcspn(file_acc_name, "\n")] = '\0';
                     change++;
                 }
-                else if (choice == 2 && change <2)
+                else if (choice == 2 && change < 2)
                 {
                     system("cls");
                     system("color a");
                     printf("Enter the new email: ");
-                    getchar(); //clear the newline.
+                    getchar(); // clear the newline.
                     fgets(file_email, sizeof(file_email), stdin);
                     file_email[strcspn(file_email, "\n")] = '\0';
                     change++;
                 }
-                else if (choice == 3 && change <2)
+                else if (choice == 3 && change < 2)
                 {
                     system("cls");
                     system("color a");
@@ -658,7 +653,7 @@ void updateAccount(char *acc_name, char *email)
                     file_phone_no[strcspn(file_phone_no, "\n")] = '\0';
                     change++;
                 }
-                else if(change >= 2)
+                else if (change >= 2)
                 {
                     char account_choice;
                     system("cls");
@@ -680,12 +675,14 @@ void updateAccount(char *acc_name, char *email)
                     system("color 7");
                     system("cls");
                 }
-                if (change < 2) {
+                if (change < 2)
+                {
                     printf("\nWould you like to change anything else? (y/n): ");
                     char continue_choice;
                     scanf("%c", &continue_choice);
                     getchar(); // Clear the newline left by scanf
-                    if (continue_choice == 'n' || continue_choice == 'N') {
+                    if (continue_choice == 'n' || continue_choice == 'N')
+                    {
                         break;
                     }
                     else if (continue_choice == 'y' || continue_choice == 'Y')
@@ -701,9 +698,10 @@ void updateAccount(char *acc_name, char *email)
                     }
                 }
 
-            }while(change <2);
+            } while (change < 2);
 
-            if (choice == 4 && (account_choice == 'y' || account_choice == 'Y')) {
+            if (choice == 4 && (account_choice == 'y' || account_choice == 'Y'))
+            {
                 continue;
             }
         }
@@ -719,7 +717,8 @@ void updateAccount(char *acc_name, char *email)
         remove("accounts.txt");
         rename("temporary.txt", "accounts.txt");
 
-        if (choice == 4 && (account_choice == 'y' || account_choice == 'Y')) {
+        if (choice == 4 && (account_choice == 'y' || account_choice == 'Y'))
+        {
             char new_acc_name[60], new_email[60], new_phone_no[15];
             int new_acc_no;
             printf("Enter the new account name: ");
@@ -733,12 +732,12 @@ void updateAccount(char *acc_name, char *email)
             new_phone_no[strcspn(new_phone_no, "\n")] = '\0';
             printf("Enter the new account number: ");
             scanf("%d", &new_acc_no);
-            getchar(); 
-            
-            createAccount(new_acc_name, file_acc_no, new_email, new_phone_no, file_balance);
+            getchar();
 
+            createAccount(new_acc_name, file_acc_no, new_email, new_phone_no, file_balance);
         }
-        else {
+        else
+        {
             system("cls");
             system("color a");
             printf("Greetings: Account updated successfully!\n");
@@ -763,14 +762,12 @@ void updateAccount(char *acc_name, char *email)
     }
 }
 
-
 void main()
 {
     int choice;
     char acc_name[60], email[60], phone_no[15];
     int acc_no;
     float balance;
-
 
     system("cls");
     system("color a");
@@ -793,100 +790,144 @@ void main()
 
     switch (choice)
     {
-        //Case 1 is for creating the account is completed and it works successfully.
-        case 1:
-            system("cls");
-            printf("Enter the account name: ");
-            fgets(acc_name, sizeof(acc_name), stdin);
-            acc_name[strcspn(acc_name, "\n")] = '\0';
-            printf("Enter the email: ");
-            fgets(email, sizeof(email), stdin);
-            email[strcspn(email, "\n")] = '\0';
-            printf("Enter the contact number: ");
-            fgets(phone_no, sizeof(phone_no), stdin);
-            printf("Enter the balance: ");
-            scanf("%f", &balance);
-            printf("Enter the account number: ");
-            scanf("%d", &acc_no);
-            createAccount(acc_name, acc_no, email, phone_no, balance);
-            break;
+    // Case 1 is for creating the account is completed and it works successfully.
+    case 1:
+        system("cls");
+        printf("Enter the account name: ");
+        fgets(acc_name, sizeof(acc_name), stdin);
+        acc_name[strcspn(acc_name, "\n")] = '\0';
+        printf("Enter the email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0';
+        printf("Enter the contact number: ");
+        fgets(phone_no, sizeof(phone_no), stdin);
+        printf("Enter the balance: ");
+        scanf("%f", &balance);
+        printf("Enter the account number: ");
+        scanf("%d", &acc_no);
+        createAccount(acc_name, acc_no, email, phone_no, balance);
+        break;
 
-        //Case 2 is for deleting the account is completed and it works successfully without an error.
-        case 2:
-            system("cls");
-            printf("Enter the account name: ");
-            fgets(acc_name, sizeof(acc_name), stdin);
-            acc_name[strcspn(acc_name, "\n")] = '\0';
-            printf("Enter the email: ");
-            fgets(email, sizeof(email), stdin);
-            email[strcspn(email, "\n")] = '\0';
-            printf("Enter the contact number: ");
-            fgets(phone_no, sizeof(phone_no), stdin);
-            phone_no[strcspn(phone_no, "\n")] = '\0';
-            closeAccount(acc_name, email, phone_no);
-            break;
+    // Case 2 is for deleting the account is completed and it works successfully without an error.
+    case 2:
+        system("cls");
+        printf("Enter the account name: ");
+        fgets(acc_name, sizeof(acc_name), stdin);
+        acc_name[strcspn(acc_name, "\n")] = '\0';
+        printf("Enter the email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0';
+        printf("Enter the contact number: ");
+        fgets(phone_no, sizeof(phone_no), stdin);
+        phone_no[strcspn(phone_no, "\n")] = '\0';
+        closeAccount(acc_name, email, phone_no);
+        break;
+
+    // Case 3 is for checking the bank balance is completed and it worked successfully.
+    case 3:
+        system("cls");
+        printf("Enter the account name: ");
+        fgets(acc_name, sizeof(acc_name), stdin);
+        acc_name[strcspn(acc_name, "\n")] = '\0';
+        printf("Enter the account number: ");
+        scanf("%d", &acc_no);
+        getchar(); // Consume the newline character left by scanf
+        printf("Enter the email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0';
+        printf("Enter the contact number: ");
+        fgets(phone_no, sizeof(phone_no), stdin);
+        phone_no[strcspn(phone_no, "\n")] = '\0';
+        checkBalance(acc_name, acc_no, email, phone_no);
+        break;
+
+    // Case 4 is for deposit the amount in the account completed and it works successfully.
+    case 4:
+        system("cls");
+        printf("Enter the account name: ");
+        fgets(acc_name, sizeof(acc_name), stdin);
+        acc_name[strcspn(acc_name, "\n")] = '\0';
+        printf("Enter the account number: ");
+        scanf("%d", &acc_no);
+        getchar(); // Consume the newline character left by scanf
+        printf("Enter the email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0';
+        printf("Enter the contact number: ");
+        fgets(phone_no, sizeof(phone_no), stdin);
+        phone_no[strcspn(phone_no, "\n")] = '\0';
+        printf("Enter the amount to deposit: ");
+        scanf("%f", &balance);
+        deposit(acc_name, acc_no, email, phone_no, balance);
+        break;
+
+    // Case 5 is for withdraw the amount from the account is completed and it runs successfully.
+    case 5:
+        system("cls");
+        printf("Enter the account name: ");
+        fgets(acc_name, sizeof(acc_name), stdin);
+        acc_name[strcspn(acc_name, "\n")] = '\0';
+        printf("Enter the account number: ");
+        scanf("%d", &acc_no);
+        getchar();
+        printf("Enter the email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0';
+        printf("Enter the contact number: ");
+        fgets(phone_no, sizeof(phone_no), stdin);
+        phone_no[strcspn(phone_no, "\n")] = '\0';
+        printf("Enter the amount to withdraw: ");
+        scanf("%f", &balance);
+
+        withdraw(acc_name, acc_no, email, phone_no, balance);
+        break;
 
 
-        // Case 3 is for checking the bank balance is completed and it worked successfully.      
-        case 3:
-            system("cls");
-            printf("Enter the account name: ");
-            fgets(acc_name, sizeof(acc_name), stdin);
-            acc_name[strcspn(acc_name, "\n")] = '\0';
-            printf("Enter the account number: ");
-            scanf("%d", &acc_no);
-            getchar(); // Consume the newline character left by scanf
-            printf("Enter the email: ");
-            fgets(email, sizeof(email), stdin);
-            email[strcspn(email, "\n")] = '\0';
-            printf("Enter the contact number: ");
-            fgets(phone_no, sizeof(phone_no), stdin);
-            phone_no[strcspn(phone_no, "\n")] = '\0';
-            checkBalance(acc_name, acc_no, email, phone_no);
-            break;
+    // This is the 6th case which is transfer the amount from 1st account to 2nd account and it works successfully.
+    case 6:
+        system("cls");
+        printf("Enter the 1st account name: ");
+        fgets(acc_name, sizeof(acc_name), stdin);
+        acc_name[strcspn(acc_name, "\n")] = '\0'; // Remove newline character
 
+        printf("Enter the 1st account number: ");
+        scanf("%d", &acc_no);
+        getchar(); // Consume the newline left by scanf
 
-        // Case 4 is for deposit the amount in the account completed and it works successfully.
-        case 4:
-            system("cls");
-            printf("Enter the account name: ");
-            fgets(acc_name, sizeof(acc_name), stdin);
-            acc_name[strcspn(acc_name, "\n")] = '\0';
-            printf("Enter the account number: ");
-            scanf("%d", &acc_no);
-            getchar(); // Consume the newline character left by scanf
-            printf("Enter the email: ");
-            fgets(email, sizeof(email), stdin);
-            email[strcspn(email, "\n")] = '\0';
-            printf("Enter the contact number: ");
-            fgets(phone_no, sizeof(phone_no), stdin);
-            phone_no[strcspn(phone_no, "\n")] = '\0';
-            printf("Enter the amount to deposit: ");
-            scanf("%f", &balance);
-            deposit(acc_name, acc_no, email, phone_no, balance);
-            break;
+        printf("Enter the 1st email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0'; // Remove newline character
 
-        // Case 5 is for withdraw the amount from the account is completed and it runs successfully.
-        case 5:
-            system("cls");
-            printf("Enter the account name: ");
-            fgets(acc_name, sizeof(acc_name), stdin);
-            acc_name[strcspn(acc_name, "\n")] = '\0';
-            printf("Enter the account number: ");
-            scanf("%d", &acc_no);
-            getchar(); 
-            printf("Enter the email: ");
-            fgets(email, sizeof(email), stdin);
-            email[strcspn(email, "\n")] = '\0';
-            printf("Enter the contact number: ");
-            fgets(phone_no, sizeof(phone_no), stdin);
-            phone_no[strcspn(phone_no, "\n")] = '\0';
-            printf("Enter the amount to withdraw: ");
-            scanf("%f", &balance);
+        printf("Enter the 1st contact number: ");
+        fgets(phone_no, sizeof(phone_no), stdin);
+        phone_no[strcspn(phone_no, "\n")] = '\0'; // Remove newline character
 
-            withdraw(acc_name,acc_no,email,phone_no,balance);
+        printf("Enter the amount to transfer: ");
+        scanf("%f", &balance);
+        getchar(); // Consume the newline left by scanf
 
+        // Second account details
+        char acc2_name[60], email2[60], phone_no2[15];
+        int acc2_no;
+
+        printf("Enter the 2nd account name: ");
+        fgets(acc2_name, sizeof(acc2_name), stdin);
+        acc2_name[strcspn(acc2_name, "\n")] = '\0'; // Remove newline character
+
+        printf("Enter the 2nd account number: ");
+        scanf("%d", &acc2_no);
+        getchar(); // Consume the newline left by scanf
+
+        printf("Enter the 2nd email: ");
+        fgets(email2, sizeof(email2), stdin);
+        email2[strcspn(email2, "\n")] = '\0'; // Remove newline character
+
+        printf("Enter the 2nd contact number: ");
+        fgets(phone_no2, sizeof(phone_no2), stdin);
+        phone_no2[strcspn(phone_no2, "\n")] = '\0'; // Remove newline character
+
+        // Call the transferAmount function with both accounts' details
+        transferAmount(acc_name, acc_no, email, phone_no, balance, acc2_name, acc2_no, email2, phone_no2);
+        break;
     }
-    
-    
 }

@@ -929,5 +929,33 @@ void main()
         // Call the transferAmount function with both accounts' details
         transferAmount(acc_name, acc_no, email, phone_no, balance, acc2_name, acc2_no, email2, phone_no2);
         break;
+
+
+        // case 7 is show the account details if you want to see account information and It's works successfully without a small error.
+        case 7:
+        system("cls");
+        printf("Enter the 1st account name: ");
+        fgets(acc_name, sizeof(acc_name), stdin);
+        acc_name[strcspn(acc_name, "\n")] = '\0';
+
+        printf("Enter the 1st email: ");
+        fgets(email, sizeof(email), stdin);
+        email[strcspn(email, "\n")] = '\0'; 
+
+        viewAccountInformation(acc_name,email);
+        break;
+
+
+        case 8:
+            break;
+
+        case 9:
+            system("cls");
+            printf("Thanks for using the bank!\n\n");
+            printf("Press any key to continue...");
+            getchar();
+            system("cls");
+            system("color 07");
+            exit(1);
     }
 }
